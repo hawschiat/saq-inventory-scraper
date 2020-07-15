@@ -95,7 +95,7 @@ fun main(args: Array<String>) {
             " |_____/_/    \\_\\___\\_\\ |_____/ \\___|_|  \\__,_| .__/ \\___|_|   \n" +
             "                                              | |              \n" +
             "                                              |_|              ")
-    println("v0.1.0 by SC Haw\n")
+    println("v0.1.1 by SC Haw\n")
     while (true) {
         println("Please enter the url for the product you'd like to query, or 'exit'.")
         val input = readLine()
