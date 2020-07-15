@@ -37,11 +37,17 @@ brew cask install chromedriver
 
 Run
 ```$xslt
-java -jar saq-inventory-scraper-0.1.0.jar
+java -jar saq-inventory-scraper-x.x.x.jar
 ```
 The program will then prompt you for a url to the product page. e.g. https://www.saq.com/en/14252639
 
-For macOS users, you can just run the provided script, which will automatically run the JAR file if your system 
+To save the outputs to CSV files, run the program with an additional argument:
+```
+java -jar saq-inventory-scraper-x.x.x.jar --saveFile
+```
+The program will prompt for a file name at each operation.
+
+For macOS users, you can just run the provided scripts, which will automatically run the JAR file if your system 
 meets the requirement.
 
 ### Disclaimer

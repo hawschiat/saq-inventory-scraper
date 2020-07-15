@@ -24,4 +24,4 @@ then
 fi
 
 # run jar file
-java -jar saq-inventory-scraper-0.1.0.jar
+java -jar saq-inventory-scraper-0.1.1.jar
