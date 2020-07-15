@@ -1,6 +1,6 @@
 # SAQ Inventory Scraper
 
-This simple tool was created to query the quantities available across all available [SAQ](https://www.saq.com/) branches.
+This simple tool was created to query the quantities of certain products across all available [SAQ](https://www.saq.com/) branches.
 
 Since SAQ doesn't provide any public API, the only way to obtain this data is by manually browsing through the site.
 An easy way to achieve this is to parse through the HTML page using a parser. However, since SAQ's product page doesn't 
