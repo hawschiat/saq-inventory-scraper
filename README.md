@@ -4,8 +4,8 @@ This simple tool was created to query the quantities of certain products across 
 
 Since SAQ doesn't provide any public API, the only way to obtain this data is by manually browsing through the site.
 An easy way to achieve this is to parse through the HTML page using a parser. However, since SAQ's product page doesn't 
-load up the data for all stores at once, we need a way to automate the process of clicking certain buttons on page to
-load the rest of the data.
+load up the data for all stores at once, the need arises for a way to automate the process of clicking certain buttons 
+on the product page in order to load the rest of the data.
 
 This is where [Selenium Web Driver](https://www.selenium.dev/projects/) comes into action. This framework allows me to 
 create scripts that automate the aforementioned processes, as well as scraping data from a given page.
