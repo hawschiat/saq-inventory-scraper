@@ -19,7 +19,8 @@ create scripts that automate the aforementioned processes, as well as scraping d
 #### For macOS users
 Please ensure that you have JRE and Google Chrome installed on your machine.
 
-I have provided a script to facilitate the installation of Chromedriver in the released archive.
+I have provided a script to facilitate the installation of Chromedriver in the 
+[released archive](https://github.com/hawschiat/saq-inventory-scraper/releases).
 You may also follow the instructions below to install it yourself.
 
 1. Install Homebrew
