@@ -19,8 +19,9 @@ dependencies {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'io.github.hawschiat.SaqScraper'
+        attributes 'Main-Class': 'io.github.hawschiat.SaqScraperKt'
     }
+    from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
 }
 
 compileKotlin {

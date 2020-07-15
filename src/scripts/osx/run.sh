@@ -1,5 +1,7 @@
 #!/bin/sh
 
+cd "$(dirname "$0")"
+
 # check if Java is installed
 if test -z "$(which java)"
 then

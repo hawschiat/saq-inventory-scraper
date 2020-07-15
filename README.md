@@ -16,7 +16,7 @@ create scripts that automate the aforementioned processes, as well as scraping d
 - [Chromedriver](https://chromedriver.chromium.org/home)
 
 
-##### For macOS users
+#### For macOS users
 Please ensure that you have JRE and Google Chrome installed on your machine.
 
 I have provided a script to facilitate the installation of Chromedriver in the released archive.
