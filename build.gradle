@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'io.github.hawschiat'
-version '0.1.1'
+version '0.1.2'
 
 repositories {
     mavenCentral()
@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '2.41.0'
+    implementation 'org.seleniumhq.selenium:selenium-java:3.+'
     implementation "com.jakewharton.picnic:picnic:0.3.1"
     implementation 'com.github.doyaaaaaken:kotlin-csv-jvm:0.7.3'
     implementation "org.jetbrains.kotlinx:kotlinx-cli:0.2.1"
