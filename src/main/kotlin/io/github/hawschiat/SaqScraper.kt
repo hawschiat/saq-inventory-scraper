@@ -8,6 +8,7 @@ import kotlinx.cli.ArgType
 import kotlinx.cli.default
 import org.openqa.selenium.By
 import org.openqa.selenium.chrome.ChromeDriver
+import org.openqa.selenium.chrome.ChromeOptions
 import org.openqa.selenium.support.ui.ExpectedConditions
 import org.openqa.selenium.support.ui.WebDriverWait
 import kotlin.system.exitProcess
@@ -15,13 +16,34 @@ import kotlin.system.exitProcess
 data class Inventory(val storeName: String, val storeId: String, val quantity: Int) {}
 
 fun getInventory(productUrl: String): List<Inventory> {
-    val driver = ChromeDriver()
+    // Extra options to prevent error in headless environment
+    val options = ChromeOptions()
+    options.addArguments("--no-sandbox")
+    options.setHeadless(true)
+    // Start Chrome Driver with the specified options
+    val driver = ChromeDriver(options)
     val wait = WebDriverWait(driver, 60)
+    val inventory = mutableListOf<Inventory>()
+
     driver.get(productUrl)
+
+    // Get the online stock
+    val stockContainerList = driver.findElementsByClassName("stock-label-container")
+    var onlineStock = 0
+    if (stockContainerList.size > 0) {
+        onlineStock = stockContainerList[0]
+                .findElement(By.className("product-online-availability"))
+                .findElement(By.tagName("span"))
+                .text.toInt()
+    }
+    // Add data to map
+    inventory.add(Inventory("Online", "0", onlineStock))
+
+    // Wait for off canvas toggle to show
+    val offCanvasToggleSelector = "div.available-in-store div.off-canvas-toggle button.action.toggle"
+    wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector(offCanvasToggleSelector)))
     // Toggle off canvas
-    driver.findElementByClassName("available-in-store")
-            .findElement(By.className("off-canvas-toggle"))
-            .findElement(By.cssSelector("button.action.toggle")).click()
+    driver.executeScript("document.querySelector('${offCanvasToggleSelector}').click()")
 
     // Wait until data has been loaded
     val storeListItemSelector = "div#off-canvas-instore > div.wrapper-store > div > " +
@@ -38,18 +60,19 @@ fun getInventory(productUrl: String): List<Inventory> {
 
     // Keep loading data while possible
     while (driver.findElementByCssSelector(showMoreSelector).isDisplayed) {
-        driver.findElementByCssSelector(showMoreSelector).click()
+        driver.executeScript("document.querySelector('${showMoreSelector}').click()")
         // Wait until more data has been loaded
-        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(
-                By.cssSelector("div#off-canvas-instore > div.wrapper-store > div > " +
-                        "div.store-locator-content > div.list-map-container > div.store-list-container > " +
-                        "ul.store-list > li:nth-child(${storeCount + 1})")
-        ))
+        wait.until(
+                ExpectedConditions.presenceOfAllElementsLocatedBy(
+                        By.cssSelector("div#off-canvas-instore > div.wrapper-store > div > " +
+                                "div.store-locator-content > div.list-map-container > div.store-list-container > " +
+                                "ul.store-list > li:nth-child(${storeCount + 1})")
+                )
+        )
         storeCount = driver.findElementsByCssSelector(storeListItemSelector).size
     }
 
-    // Done. Now select all elements that contain inventory data
-    val inventory = mutableListOf<Inventory>()
+    // Done. Now select all elements that contain inventory dat
 
     driver.findElementsByCssSelector(storeListItemSelector)
             .forEach { el ->
@@ -95,7 +118,7 @@ fun main(args: Array<String>) {
             " |_____/_/    \\_\\___\\_\\ |_____/ \\___|_|  \\__,_| .__/ \\___|_|   \n" +
             "                                              | |              \n" +
             "                                              |_|              ")
-    println("v0.1.1 by SC Haw\n")
+    println("v0.1.2 by SC Haw\n")
     while (true) {
         println("Please enter the url for the product you'd like to query, or 'exit'.")
         val input = readLine()
